@@ -1,6 +1,6 @@
 Package.describe({
   name: "themeteorchef:bert",
-  version: "2.2.2",
+  version: "2.2.3",
   summary: "A client side, multi-style alerts system for Meteor.",
   git: "http://github.com/themeteorchef/bert",
   documentation: "README.md",
@@ -14,6 +14,10 @@ Package.onUse(function (api) {
     'fourseven:scss@4.12.0',
     'tracker'
   ], 'client');
+
+  Npm.depends({
+    'animate.css': '4.1.1'
+  })
 
   api.addFiles(
     [
