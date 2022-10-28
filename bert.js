@@ -17,7 +17,13 @@ import '@fortawesome/fontawesome-free/js/all.js';
 /* global setTimeout, clearTimeout, requestAnimationFrame */
 
 
-// Helper function got get a single element with the class name
+
+/**
+ * Helper function got get a single element with the class name
+ * 
+ * @param {string} className 
+ * @returns {object | undefined} element if it exists, undefined if not
+ */
 function getElementByClassName(className) {
   const elems = document.getElementsByClassName(className);
   return elems.length > 0 ? elems[0] : undefined;
