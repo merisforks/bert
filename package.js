@@ -2,7 +2,7 @@
 
 Package.describe({
   name: "themeteorchef:bert",
-  version: "2.2.3",
+  version: "2.2.4",
   summary: "A client side, multi-style alerts system for Meteor.",
   git: "http://github.com/themeteorchef/bert",
   documentation: "README.md",
