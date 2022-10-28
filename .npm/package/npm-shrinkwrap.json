@@ -1,6 +1,9 @@
 {
   "lockfileVersion": 1,
   "dependencies": {
+    "@fortawesome/fontawesome-free": {
+      "version": "6.1.2"
+    },
     "animate.css": {
       "version": "4.1.1"
     }

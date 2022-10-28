@@ -1,4 +1,21 @@
+import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
+
+import './templates/bert-alert.html';
+import './templates/bert-alert.js';
+import './templates/body.html';
+import './stylesheets/colors.scss';
+import './stylesheets/flexbox.scss';
+import './stylesheets/bert.scss';
+
+
 import 'animate.css';
+import '@fortawesome/fontawesome-free';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
+
+/* global setTimeout, clearTimeout, requestAnimationFrame */
+
 
 // Helper function got get a single element with the class name
 function getElementByClassName(className) {
@@ -137,4 +154,4 @@ class BertAlert {
   }
 }
 
-Bert = new BertAlert();
+export const Bert = new BertAlert();

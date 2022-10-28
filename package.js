@@ -1,3 +1,5 @@
+/* global Package, Npm */
+
 Package.describe({
   name: "themeteorchef:bert",
   version: "2.2.3",
@@ -16,21 +18,11 @@ Package.onUse(function (api) {
   ], 'client');
 
   Npm.depends({
-    'animate.css': '4.1.1'
+    'animate.css': '4.1.1',
+    '@fortawesome/fontawesome-free': '6.1.2'
   })
 
-  api.addFiles(
-    [
-      "templates/bert-alert.html",
-      "templates/bert-alert.js",
-      "templates/body.html",
-      "stylesheets/colors.scss",
-      "stylesheets/flexbox.scss",
-      "stylesheets/bert.scss",
-      "bert.js",
-    ],
-    "client"
-  );
+  api.mainModule('bert.js', 'client');
 
   api.export("Bert");
 });
