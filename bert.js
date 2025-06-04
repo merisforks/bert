@@ -8,20 +8,15 @@ import './stylesheets/colors.scss';
 import './stylesheets/flexbox.scss';
 import './stylesheets/bert.scss';
 
-
 import 'animate.css';
-import '@fortawesome/fontawesome-free';
 import '@fortawesome/fontawesome-free/css/all.css';
-import '@fortawesome/fontawesome-free/js/all.js';
 
 /* global setTimeout, clearTimeout, requestAnimationFrame */
 
-
-
 /**
  * Helper function got get a single element with the class name
- * 
- * @param {string} className 
+ *
+ * @param {string} className
  * @returns {object | undefined} element if it exists, undefined if not
  */
 function getElementByClassName(className) {
@@ -33,12 +28,12 @@ class BertAlert {
   constructor() {
     // lookup animate.css classes from bert styles
     this.animation = new Map([
-      ['fixed-top', {in: 'fadeInDownBig', out: 'fadeOutUpBig'}],
-      ['fixed-bottom', {in: 'fadeInUpBig', out: 'fadeOutDownBig'}],
-      ['growl-top-left', {in: 'fadeInLeftBig', out: 'fadeOutLeftBig'}],
-      ['growl-top-right', {in: 'fadeInRightBig', out: 'fadeOutRightBig'}],
-      ['growl-bottom-left', {in: 'fadeInLeftBig', out: 'fadeOutLeftBig'}],
-      ['growl-bottom-right', {in: 'fadeInRightBig', out: 'fadeOutRightBig'}]
+      ['fixed-top', { in: 'fadeInDownBig', out: 'fadeOutUpBig' }],
+      ['fixed-bottom', { in: 'fadeInUpBig', out: 'fadeOutDownBig' }],
+      ['growl-top-left', { in: 'fadeInLeftBig', out: 'fadeOutLeftBig' }],
+      ['growl-top-right', { in: 'fadeInRightBig', out: 'fadeOutRightBig' }],
+      ['growl-bottom-left', { in: 'fadeInLeftBig', out: 'fadeOutLeftBig' }],
+      ['growl-bottom-right', { in: 'fadeInRightBig', out: 'fadeOutRightBig' }]
     ]);
 
     this.animClasses = {
@@ -46,13 +41,7 @@ class BertAlert {
       out: ['animate__fadeOutDownBig', 'animate__fadeOutUpBig', 'animate__fadeOutLeftBig', 'animate__fadeOutRightBig']
     };
 
-    this.types = [
-      'default',
-      'success',
-      'info',
-      'warning',
-      'danger'
-    ];
+    this.types = ['default', 'success', 'info', 'warning', 'danger'];
 
     this.icons = {
       default: 'fas fa-bell',
@@ -72,11 +61,13 @@ class BertAlert {
   }
 
   alert() {
-    if( this.isVisible() ) {
+    if (this.isVisible()) {
       this.hide();
-      setTimeout( () => { this.handleAlert( arguments ); }, 300 );
+      setTimeout(() => {
+        this.handleAlert(arguments);
+      }, 300);
     } else {
-      this.handleAlert( arguments );
+      this.handleAlert(arguments);
     }
   }
 
@@ -91,9 +82,9 @@ class BertAlert {
     return this.animation.get(session?.style || this.defaults.style);
   }
 
-  handleAlert( alert ) {
+  handleAlert(alert) {
     this.registerClickHandler();
-    this.setBertOnSession( alert );
+    this.setBertOnSession(alert);
     requestAnimationFrame(() => {
       this.show();
       this.bertTimer();
@@ -107,8 +98,10 @@ class BertAlert {
   }
 
   bertTimer() {
-    clearTimeout( this.timer );
-    this.timer = setTimeout( () => { this.hide(); }, this.defaults.hideDelay );
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.hide();
+    }, this.defaults.hideDelay);
     return this.timer;
   }
 
@@ -125,27 +118,27 @@ class BertAlert {
     const anim = this.getAnimation();
     const ba = getElementByClassName('bert-alert');
     // by removing all in animation styles, this will self-heal with timing issues
-    ba.classList.remove( ...this.animClasses.in );
-    ba.classList.add( 'animate__animated', `animate__${anim.out}` );
-    setTimeout( () => {
-      ba.classList.remove( 'show' );
+    ba.classList.remove(...this.animClasses.in);
+    ba.classList.add('animate__animated', `animate__${anim.out}`);
+    setTimeout(() => {
+      ba.classList.remove('show');
       // by removing all out animation styles, this will self-heal with timing issues
-      ba.classList.remove( 'animate__animated', ...this.animClasses.out );
+      ba.classList.remove('animate__animated', ...this.animClasses.out);
       getElementByClassName('bert-icon')?.remove();
-      Session.set( 'bertAlert', null );
+      Session.set('bertAlert', null);
       // flush is required to make sure that the alert helper
       // toggles from null to a valid object
       Tracker.flush();
-    }, 200 );
+    }, 200);
   }
 
-  setBertOnSession( alert ) {
+  setBertOnSession(alert) {
     // args can come in as an object or ordered arguments
     const style = alert[0].style || alert[2] || this.defaults.style;
     const title = alert[0].title || '';
-    const message =  alert[0].message || alert[0] || '';
+    const message = alert[0].message || alert[0] || '';
     const type = alert[0].type || alert[1] || this.defaults.type;
-    const iconClass = alert[0].icon || alert[3] || this.icons[ type ];
+    const iconClass = alert[0].icon || alert[3] || this.icons[type];
     const icon = `<div class="bert-icon"><i class="${iconClass}"></i></div>`;
 
     const baData = {
@@ -156,7 +149,7 @@ class BertAlert {
       icon
     };
 
-    Session.set( 'bertAlert', baData);
+    Session.set('bertAlert', baData);
   }
 }
 
